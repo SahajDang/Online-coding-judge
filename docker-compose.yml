@@ -1,0 +1,35 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "7777:7777"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /tmp:/tmp:rw
+    environment:
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - NODE_ENV=production
+    depends_on:
+      - compiler
+    user: root
+    restart: always
+    mem_limit: 300m  # Limit memory usage
+    cpus: 0.5        # Limit CPU usage
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: always
+    mem_limit: 200m
+    cpus: 0.3
+
+  compiler:
+    build:
+      context: ./judge/java
+    image: online-judge-app-compiler:latest
+    restart: always
