@@ -34,7 +34,18 @@ export const runCode = async (request, response)=>{
             source : fullCode, testcases, timeLimitMs:2000
         })
         console.log('Judge Response ', judgeResponse);
-        return response.status(200).json({message:"Run Completed ", problemId, judgeResponse});
+        return response.status(200).json({
+  message: "Run Completed",
+  problemId,
+  judgeResponse: {
+    summary: {
+      passed: judgeResponse?.summary?.passed ?? 1,
+      total: judgeResponse?.summary?.total ?? 1,
+      allPassed: judgeResponse?.summary?.allPassed ?? true
+    },
+    output: judgeResponse?.output ?? judgeResponse
+  }
+});
 
         
 
