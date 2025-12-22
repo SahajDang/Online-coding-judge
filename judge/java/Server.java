@@ -1,5 +1,3 @@
-package judge.java;
-
 import com.sun.net.httpserver.HttpServer;
 import java.net.InetSocketAddress;
 
