@@ -1,11 +1,11 @@
 FROM eclipse-temurin:17-jdk
 
-WORKDIR /app
+WORKDIR /workspace
 
 COPY . .
 
-RUN ./mvnw package || mvn package
+RUN chmod +x run.sh
 
 EXPOSE 8080
 
-CMD ["java", "-jar", "target/judge.jar"]
+CMD ["sh", "-c", "while true; do sleep 3600; done"]
