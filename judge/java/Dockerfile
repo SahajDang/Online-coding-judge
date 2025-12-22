@@ -1,16 +1,11 @@
 FROM eclipse-temurin:17-jdk
 
-# Create folder for runner script
-RUN mkdir -p /runner
+WORKDIR /app
 
-# Copy your script into container
-COPY run.sh /runner/run.sh
+COPY . .
 
-# Make script executable
-RUN chmod +x /runner/run.sh
+RUN ./mvnw package || mvn package
 
-# Set workspace where judge mounts user code
-WORKDIR /workspace
+EXPOSE 8080
 
-# ENTRYPOINT must be ABSOLUTE PATH
-ENTRYPOINT ["/runner/run.sh"]
+CMD ["java", "-jar", "target/judge.jar"]
