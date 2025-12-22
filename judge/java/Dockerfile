@@ -1,11 +1,11 @@
 FROM eclipse-temurin:17-jdk
 
-WORKDIR /workspace
+WORKDIR /app
 
 COPY . .
 
-RUN chmod +x run.sh
+RUN javac Server.java
 
 EXPOSE 8080
 
-CMD ["sh", "-c", "echo 'Judge service running' && while true; do nc -l -p 8080 -e echo 'OK'; done"]
+CMD ["java", "Server"]
