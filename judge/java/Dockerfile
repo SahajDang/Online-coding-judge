@@ -8,4 +8,4 @@ RUN chmod +x run.sh
 
 EXPOSE 8080
 
-CMD ["sh", "-c", "while true; do sleep 3600; done"]
+CMD ["sh", "-c", "echo 'Judge service running' && while true; do nc -l -p 8080 -e echo 'OK'; done"]
